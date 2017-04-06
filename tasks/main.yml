@@ -1,0 +1,37 @@
+---
+# tasks file for ansible-role-tshark
+
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- include: "install-{{ ansible_os_family }}.yml"
+
+- name: Create log directory
+  file:
+    path: "{{ tshark_log_dir }}"
+    mode: 0755
+    owner: "{{ tshark_user }}"
+    group: "{{ tshark_group }}"
+    state: directory
+  notify: Restart tshark
+
+- name: Create db directory
+  file:
+    path: "{{ tshark_db_dir }}"
+    mode: 0755
+    owner: "{{ tshark_user }}"
+    group: "{{ tshark_group }}"
+    state: directory
+  notify: Restart tshark
+
+- name: Create tshark.conf
+  template:
+    src: tshark.conf.j2
+    dest: "{{ tshark_conf_file }}"
+    validate: echo %s
+  notify: Restart tshark
+
+- name: Start tshark
+  service:
+    name: "{{ tshark_service }}"
+    enabled: true
+    state: started

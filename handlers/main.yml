@@ -1,0 +1,6 @@
+---
+
+- name: Restart tshark
+  service:
+    name: tshark
+    state: restarted

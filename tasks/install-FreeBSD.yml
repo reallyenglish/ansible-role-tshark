@@ -1,0 +1,6 @@
+---
+
+- name: Install tshark
+  pkgng:
+    name: tshark
+    state: present
