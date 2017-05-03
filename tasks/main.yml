@@ -14,7 +14,6 @@
   file:
     path: "{{ tshark_log_dir }}"
     mode: 0755
-    owner: "{{ tshark_user }}"
     group: "{{ tshark_group }}"
     state: directory
 
