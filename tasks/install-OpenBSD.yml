@@ -1,0 +1,6 @@
+---
+
+- name: Install tshark
+  openbsd_pkg:
+    name: "{{ tshark_package }}"
+    state: present

@@ -8,6 +8,9 @@ default_user = "root"
 default_group = "root"
 
 case os[:family]
+when "openbsd"
+  default_group = "wheel"
+  group = "_wireshark"
 when "freebsd"
   default_group = "wheel"
 end
