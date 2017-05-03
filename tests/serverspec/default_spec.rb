@@ -8,6 +8,9 @@ default_user = "root"
 default_group = "root"
 
 case os[:family]
+when "redhat"
+  package = "wireshark"
+  group = "wireshark"
 when "openbsd"
   default_group = "wheel"
   group = "_wireshark"
