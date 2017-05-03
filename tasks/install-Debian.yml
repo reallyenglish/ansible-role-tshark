@@ -1,0 +1,21 @@
+---
+
+- name: See if setuid is selected
+  command: debconf-show wireshark-common
+  changed_when: false
+  register: register_debconf_show
+
+- name: Set install-setuid
+  shell: echo debconf wireshark-common/install-setuid select true | debconf-set-selections
+  register: register_debconf_set
+  when:
+    - "not '* wireshark-common/install-setuid: true' in register_debconf_show.stdout_lines"
+
+- name: Install tshark
+  apt:
+    name: "{{ tshark_package }}"
+    state: present
+
+- name: Run dpkg-reconfigure
+  command: dpkg-reconfigure -f noninteractive wireshark-common
+  when: register_debconf_set.changed

@@ -49,6 +49,16 @@ platforms:
       box: trombik/ansible-centos-7.3-x86_64
       box_check_update: false
 
+  - name: ubuntu-14.04-amd64
+    driver:
+      box: trombik/ansible-ubuntu-14.04-amd64
+      box_check_update: false
+
+  - name: ubuntu-16.04-amd64
+    driver:
+      box: trombik/ansible-ubuntu-16.04-amd64
+      box_check_update: false
+
 suites:
   - name: default
     provisioner:

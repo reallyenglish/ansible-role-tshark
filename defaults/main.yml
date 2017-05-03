@@ -4,3 +4,4 @@ tshark_group_gid: "{{ __tshark_group_gid }}"
 tshark_group_members: "{{ __tshark_group_members }}"
 tshark_log_dir: /var/log/tshark
 tshark_package: "{{ __tshark_package }}"
+tshark_dumpcap_path: "{{ __tshark_dumpcap_path }}"
