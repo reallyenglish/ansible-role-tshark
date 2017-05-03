@@ -13,7 +13,7 @@
 - name: Create log directory
   file:
     path: "{{ tshark_log_dir }}"
-    mode: 0755
+    mode: 0775
     group: "{{ tshark_group }}"
     state: directory
 
