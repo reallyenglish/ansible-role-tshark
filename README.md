@@ -55,6 +55,12 @@ None
 # Example Playbook
 
 ```yaml
+- hosts: localhost
+  roles:
+    - ansible-role-tshark
+  vars:
+    tshark_group_members:
+      - vagrant
 ```
 
 # License
