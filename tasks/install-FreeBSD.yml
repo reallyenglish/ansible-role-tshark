@@ -2,5 +2,5 @@
 
 - name: Install tshark
   pkgng:
-    name: tshark
+    name: "{{ tshark_package }}"
     state: present

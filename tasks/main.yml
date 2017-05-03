@@ -5,6 +5,12 @@
 
 - include: "install-{{ ansible_os_family }}.yml"
 
+- name: Create tshark_group
+  group:
+    name: "{{ tshark_group }}"
+    gid: "{{ tshark_group_gid }}"
+    state: present
+
 - name: Create log directory
   file:
     path: "{{ tshark_log_dir }}"
@@ -12,26 +18,10 @@
     owner: "{{ tshark_user }}"
     group: "{{ tshark_group }}"
     state: directory
-  notify: Restart tshark
 
-- name: Create db directory
-  file:
-    path: "{{ tshark_db_dir }}"
-    mode: 0755
-    owner: "{{ tshark_user }}"
-    group: "{{ tshark_group }}"
-    state: directory
-  notify: Restart tshark
-
-- name: Create tshark.conf
-  template:
-    src: tshark.conf.j2
-    dest: "{{ tshark_conf_file }}"
-    validate: echo %s
-  notify: Restart tshark
-
-- name: Start tshark
-  service:
-    name: "{{ tshark_service }}"
-    enabled: true
-    state: started
+- name: Add tshark_group_members to tshark_group
+  user:
+    name: "{{ item }}"
+    groups: "{{ tshark_group }}"
+    append: yes
+  with_items: "{{ tshark_group_members }}"

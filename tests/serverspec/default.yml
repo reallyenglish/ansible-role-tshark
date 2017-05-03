@@ -2,4 +2,5 @@
   roles:
     - ansible-role-tshark
   vars:
-    tshark_config: ""
+    tshark_group_members:
+      - vagrant

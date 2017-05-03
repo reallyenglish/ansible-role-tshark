@@ -1,58 +1,28 @@
-require 'spec_helper'
-require 'serverspec'
+require "spec_helper"
+require "serverspec"
 
-package = 'tshark'
-service = 'tshark'
-config  = '/etc/tshark/tshark.conf'
-user    = 'tshark'
-group   = 'tshark'
-ports   = [ PORTS ]
-log_dir = '/var/log/tshark'
-db_dir  = '/var/lib/tshark'
+package = "tshark"
+group   = "network"
+log_dir = "/var/log/tshark"
+default_user = "root"
+default_group = "root"
 
 case os[:family]
-when 'freebsd'
-  config = '/usr/local/etc/tshark.conf'
-  db_dir = '/var/db/tshark'
+when "freebsd"
+  default_group = "wheel"
 end
 
 describe package(package) do
   it { should be_installed }
 end 
 
-describe file(config) do
-  it { should be_file }
-  its(:content) { should match Regexp.escape('tshark') }
+describe user("vagrant") do
+  it { should belong_to_group group }
 end
 
 describe file(log_dir) do
   it { should exist }
   it { should be_mode 755 }
-  it { should be_owned_by user }
+  it { should be_owned_by default_user }
   it { should be_grouped_into group }
-end
-
-describe file(db_dir) do
-  it { should exist }
-  it { should be_mode 755 }
-  it { should be_owned_by user }
-  it { should be_grouped_into group }
-end
-
-case os[:family]
-when 'freebsd'
-  describe file('/etc/rc.conf.d/tshark') do
-    it { should be_file }
-  end
-end
-
-describe service(service) do
-  it { should be_running }
-  it { should be_enabled }
-end
-
-ports.each do |p|
-  describe port(p) do
-    it { should be_listening }
-  end
 end

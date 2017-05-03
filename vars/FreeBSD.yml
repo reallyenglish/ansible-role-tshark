@@ -1,2 +1,4 @@
-__tshark_db_dir: /var/db/tshark
-__tshark_conf_dir: /usr/local/etc/tshark
+__tshark_group: network
+__tshark_group_gid: 69
+__tshark_group_members: []
+__tshark_package: tshark

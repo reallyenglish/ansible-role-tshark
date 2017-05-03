@@ -1,8 +1,6 @@
-tshark_user: tshark
-tshark_group: tshark
+tshark_user: root
+tshark_group: "{{ __tshark_group }}"
+tshark_group_gid: "{{ __tshark_group_gid }}"
+tshark_group_members: "{{ __tshark_group_members }}"
 tshark_log_dir: /var/log/tshark
-tshark_db_dir: "{{ __tshark_db_dir }}"
-tshark_service: tshark
-tshark_conf_dir: "{{ __tshark_conf_dir }}"
-tshark_conf_file: "{{ __tshark_conf_dir }}/tshark.conf"
-tshark_flags: ""
+tshark_package: "{{ __tshark_package }}"
