@@ -8,7 +8,6 @@
 - name: Create tshark_group
   group:
     name: "{{ tshark_group }}"
-    gid: "{{ tshark_group_gid }}"
     state: present
 
 - name: Create log directory

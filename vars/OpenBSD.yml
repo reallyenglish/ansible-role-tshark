@@ -1,4 +1,3 @@
 __tshark_group: _wireshark
-__tshark_group_gid: 735
 __tshark_group_members: []
 __tshark_package: tshark

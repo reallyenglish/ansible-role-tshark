@@ -1,4 +1,3 @@
 __tshark_group: network
-__tshark_group_gid: 69
 __tshark_group_members: []
 __tshark_package: tshark
