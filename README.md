@@ -8,9 +8,45 @@ None
 
 # Role Variables
 
-| variable | description | default |
+| Variable | Description | Default |
 |----------|-------------|---------|
+| `tshark_group` | name of group allowed to run `dumpcap(1)` | `{{ __tshark_group }}` |
+| `tshark_group_members` | additional member of `tshark_group` | `{{ __tshark_group_members }}` |
+| `tshark_log_dir` | directory where `tshark_group` can write to | `/var/log/tshark` |
+| `tshark_package` | package name of `tshark` | `{{ __tshark_package }}` |
 
+
+## Debian
+
+| Variable | Default |
+|----------|---------|
+| `__tshark_group` | `wireshark` |
+| `__tshark_group_members` | `[]` |
+| `__tshark_package` | `tshark` |
+
+## FreeBSD
+
+| Variable | Default |
+|----------|---------|
+| `__tshark_group` | `network` |
+| `__tshark_group_members` | `[]` |
+| `__tshark_package` | `tshark` |
+
+## OpenBSD
+
+| Variable | Default |
+|----------|---------|
+| `__tshark_group` | `_wireshark` |
+| `__tshark_group_members` | `[]` |
+| `__tshark_package` | `tshark` |
+
+## RedHat
+
+| Variable | Default |
+|----------|---------|
+| `__tshark_group` | `wireshark` |
+| `__tshark_group_members` | `[]` |
+| `__tshark_package` | `wireshark` |
 
 # Dependencies
 
