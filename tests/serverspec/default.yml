@@ -3,4 +3,5 @@
     - ansible-role-tshark
   vars:
     tshark_group_members:
-      - vagrant
+      vagrant:
+        state: present

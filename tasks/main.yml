@@ -3,6 +3,11 @@
 
 - include_vars: "{{ ansible_os_family }}.yml"
 
+- assert:
+    that:
+      - item.value.state == 'present' or item.value.state == 'absent'
+  with_dict: "{{ tshark_group_members }}"
+
 - include: "install-{{ ansible_os_family }}.yml"
 
 - name: Create tshark_group
@@ -19,7 +24,24 @@
 
 - name: Add tshark_group_members to tshark_group
   user:
-    name: "{{ item }}"
+    name: "{{ item.key }}"
     groups: "{{ tshark_group }}"
     append: yes
-  with_items: "{{ tshark_group_members }}"
+  with_dict: "{{ tshark_group_members }}"
+  when:
+    - item.value.state == 'present'
+
+- name: Get all group members
+  shell: "getent group {{ tshark_group }} | cut -f4 -d':' | sed -E 's/,/\\n/g'"
+  register: register_getent_group_tshark
+  changed_when: false
+
+- name: Remove tshark_group_members from tshark_group
+  user:
+    name: "{{ item.key }}"
+    groups: "{{ tshark_group }}"
+    append: no
+  with_dict: "{{ tshark_group_members }}"
+  when:
+    - item.value.state == 'absent'
+    - item.key in register_getent_group_tshark.stdout_lines

@@ -11,17 +11,26 @@ None
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `tshark_group` | name of group allowed to run `dumpcap(1)` | `{{ __tshark_group }}` |
-| `tshark_group_members` | additional member of `tshark_group` | `{{ __tshark_group_members }}` |
 | `tshark_log_dir` | directory where `tshark_group` can write to | `/var/log/tshark` |
 | `tshark_package` | package name of `tshark` | `{{ __tshark_package }}` |
+| `tshark_group_members` | a dict of additional members of `tshark_group` (see below) | `{}` |
 
+## `tshark_group_members`
+
+The key is the user name. The value is another dict with `state` as only valid
+key. `state` must be either `present` or `absent`. An example:
+
+```yaml
+tshark_group_members:
+  vagrant:
+    state: present
+```
 
 ## Debian
 
 | Variable | Default |
 |----------|---------|
 | `__tshark_group` | `wireshark` |
-| `__tshark_group_members` | `[]` |
 | `__tshark_package` | `tshark` |
 
 ## FreeBSD
@@ -29,7 +38,6 @@ None
 | Variable | Default |
 |----------|---------|
 | `__tshark_group` | `network` |
-| `__tshark_group_members` | `[]` |
 | `__tshark_package` | `tshark` |
 
 ## OpenBSD
@@ -37,7 +45,6 @@ None
 | Variable | Default |
 |----------|---------|
 | `__tshark_group` | `_wireshark` |
-| `__tshark_group_members` | `[]` |
 | `__tshark_package` | `tshark` |
 
 ## RedHat
@@ -45,7 +52,6 @@ None
 | Variable | Default |
 |----------|---------|
 | `__tshark_group` | `wireshark` |
-| `__tshark_group_members` | `[]` |
 | `__tshark_package` | `wireshark` |
 
 # Dependencies
@@ -60,7 +66,8 @@ None
     - ansible-role-tshark
   vars:
     tshark_group_members:
-      - vagrant
+      vagrant:
+        state: present
 ```
 
 # License
