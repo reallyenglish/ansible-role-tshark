@@ -1,6 +1,6 @@
 # ansible-role-tshark
 
-A brief description of the role goes here.
+Installs `tshark` and manages privileged group
 
 # Requirements
 
