@@ -1,6 +1,6 @@
 # ansible-role-tshark
 
-A brief description of the role goes here.
+Installs `tshark` and manages privileged group
 
 # Requirements
 
@@ -8,9 +8,51 @@ None
 
 # Role Variables
 
-| variable | description | default |
+| Variable | Description | Default |
 |----------|-------------|---------|
+| `tshark_group` | name of group allowed to run `dumpcap(1)` | `{{ __tshark_group }}` |
+| `tshark_log_dir` | directory where `tshark_group` can write to | `/var/log/tshark` |
+| `tshark_package` | package name of `tshark` | `{{ __tshark_package }}` |
+| `tshark_group_members` | a dict of additional members of `tshark_group` (see below) | `{}` |
 
+## `tshark_group_members`
+
+The key is the user name. The value is another dict with `state` as only valid
+key. `state` must be either `present` or `absent`. An example:
+
+```yaml
+tshark_group_members:
+  vagrant:
+    state: present
+```
+
+## Debian
+
+| Variable | Default |
+|----------|---------|
+| `__tshark_group` | `wireshark` |
+| `__tshark_package` | `tshark` |
+
+## FreeBSD
+
+| Variable | Default |
+|----------|---------|
+| `__tshark_group` | `network` |
+| `__tshark_package` | `tshark` |
+
+## OpenBSD
+
+| Variable | Default |
+|----------|---------|
+| `__tshark_group` | `_wireshark` |
+| `__tshark_package` | `tshark` |
+
+## RedHat
+
+| Variable | Default |
+|----------|---------|
+| `__tshark_group` | `wireshark` |
+| `__tshark_package` | `wireshark` |
 
 # Dependencies
 
@@ -19,6 +61,13 @@ None
 # Example Playbook
 
 ```yaml
+- hosts: localhost
+  roles:
+    - ansible-role-tshark
+  vars:
+    tshark_group_members:
+      vagrant:
+        state: present
 ```
 
 # License

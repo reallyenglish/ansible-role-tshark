@@ -1,0 +1,6 @@
+---
+
+- name: Install tshark
+  yum:
+    name: "{{ tshark_package }}"
+    state: present
