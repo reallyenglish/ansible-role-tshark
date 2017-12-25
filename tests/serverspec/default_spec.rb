@@ -31,7 +31,7 @@ end
 
 describe package(package) do
   it { should be_installed }
-end 
+end
 
 describe file(dumpcap) do
   it { should be_file }
